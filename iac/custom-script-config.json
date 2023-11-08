@@ -1,6 +1,6 @@
 {
-    "fileUris": ["https://github.com/pzsolt72/oe-kubernetes/blob/feature-docker/iac/install-docker1.sh"],
-    "commandToExecute": "./install-docker1.sh",
+    "fileUris": ["https://github.com/pzsolt72/oe-kubernetes/blob/feature-docker/iac/install-docker2.sh"],
+    "commandToExecute": "./install-docker2.sh",
     "skipDos2Unix":false
 
   }
