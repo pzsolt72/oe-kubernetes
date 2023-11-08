@@ -35,7 +35,7 @@ az vm create `
 
 az vm extension set `
     --resource-group $resourceGroup `
-    --vm-name $vmName'0' --name customScript `
+    --vm-name $vmName'1' --name customScript `
     --publisher Microsoft.Azure.Extensions `
     --settings ./iac/custom-script-config.json
 
