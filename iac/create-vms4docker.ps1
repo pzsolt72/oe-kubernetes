@@ -6,6 +6,8 @@ $adminPwd = 'Azureadm1234.'
 $vnet = 'oe-docker-vnet'
 $subnet = 'subnet-1'
 $count = 2
+$installDocker = 'https://github.com/pzsolt72/oe-kubernetes/blob/feature-docker/iac/install-docker.sh'
+
 
 az account set --subscription $susbscription
 
@@ -29,7 +31,14 @@ az vm create `
     --vnet-name $vnet `
     --subnet $subnet `
     --count $count
-    
+
+
+az vm extension set `
+    --resource-group $resourceGroup `
+    --vm-name $vmName'0' --name customScript `
+    --publisher Microsoft.Azure.Extensions `
+    --settings ./iac/custom-script-config.json
+
 
 az group delete --resource-group $reysourceGroup
 
