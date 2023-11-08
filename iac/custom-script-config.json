@@ -1,4 +1,0 @@
-{
-    "fileUris": ["https://github.com/pzsolt72/oe-kubernetes/blob/feature-docker/iac/install-docker.sh"],
-    "commandToExecute": "./install-docker.sh"
-  }

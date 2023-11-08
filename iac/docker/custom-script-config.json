@@ -1,0 +1,4 @@
+{
+    "fileUris": ["https://raw.githubusercontent.com/pzsolt72/oe-kubernetes/feature-docker/iac/install-docker.sh"],
+    "commandToExecute": "./install-docker.sh"
+  }
