@@ -2,7 +2,7 @@ $file_content = Get-Content "./.secret" -raw
 $file_content = [Regex]::Escape($file_content)
 $file_content = $file_content -replace "(\\r)?\\n", [Environment]::NewLine
 $configuration = ConvertFrom-StringData($file_content)
-
+$configuration.'subscriptionId'
 
 
 $susbscription = $configuration.'subscriptionId'
