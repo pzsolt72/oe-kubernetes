@@ -7,7 +7,7 @@ $configuration.'subscriptionId'
 
 $susbscription = $configuration.'subscriptionId'
 $resourceGroup = 'oe-docker-rg'
-$vmName = 'oe_docker_vm'
+$vmName = 'oe-docker-vm'
 $vmSize= 'Standard_DS1_v2'  #Standard_DS1_v2 Standard_D2as_v4
 $adminUser = 'azureadm'
 $adminPwd = $configuration.'vmAdminPassword'
