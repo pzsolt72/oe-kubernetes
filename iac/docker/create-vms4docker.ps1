@@ -41,7 +41,7 @@ for ($i = 0; $i -lt $count; $i++) {
         --version 2.0 `
         --settings ./iac/docker/custom-script-config.json
 
-    # az vm auto-shutdown -g resourceGroup -n "$vmName$i" --time 1730
+   
 }
 
 
