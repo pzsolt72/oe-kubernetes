@@ -18,3 +18,10 @@ apt install python3.11 pip -y
 pip install Flask
 
 apt install git
+
+
+cd /home/azureadm
+
+git clone https://github.com/pzsolt72/oe-kubernetes.git
+
+chown -R azureadm /home/azureadm/oe-kubernetes
