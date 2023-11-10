@@ -2,9 +2,9 @@
 
 ## Containers
 
-## Prepare the enviropnment
+## Prepare the environment
 
-Log in to the provided VM with a ssh terminal or Azure cloud shell. The VMs are created befor the sesson and deleted after.
+Login to the provided VM with a ssh terminal or Azure cloud shell. The VMs are created befor the sesson and deleted after.
 
 hostname: vm<num>.oedevops.site
 username: azureadm
@@ -17,7 +17,7 @@ azureadm@oe-docker-vm0:~$
 
 ```
 
-*You can use your own computer as well with internet access. Prerequisites: installed Docker and running docker daemon, clon of this repository, Python 3 installed with Flask module*
+*You can use your own computer as well with internet access. Prerequisites: installed Docker and running docker daemon, clone of this repository, Python 3 installed with Flask module*
 
 
 ## Run an existing application in docker 
@@ -60,7 +60,7 @@ Run the application in detached mode where. You will get back the command prompt
 ```bash
 sudo docker run -p 80:80 -d nginx:1.24.0
 ```
-The utput is the container id
+The output is the container id
 ```bash
 2b27ba1754915b5e31bd85ed891398fde526831930dca576cbbbb8f2fbed9d77
 ```
@@ -123,6 +123,12 @@ Stop and remove the container.
 sudo docker stop mynginx
 sudo docker rm mynginx
 ```
+
+### Add a volume to the application
+
+Persisting files you need to add a volume to your container. 
+In this example you setup a directory *site* that is used as the root of your web content. 
+In this example we just privide the *index.html*, however feel free to extend with your own idea.
 
 Add your own index page to your Nginx server.
 
@@ -209,7 +215,7 @@ Output
 Stop your server with CTRL-C.
 
 
-### Wrap your app in a container Try the application
+### Wrap your app in a container 
 
 Check your Dockerfile
 
@@ -227,7 +233,7 @@ Run your container app that has just been built.
 ```bash
 sudo docker run -d -p 8080:8080 --name mybookservice bookservice
 ```
--t bookservice is your container name, the -t is for tagging, the last parameter is the place of the Dockerfile.
+*bookservice* is your image name, the -t is for tagging, the last parameter is the place of the Dockerfile.
 
 Check your application again.
 ```bash
