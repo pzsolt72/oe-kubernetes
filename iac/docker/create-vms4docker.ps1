@@ -17,7 +17,7 @@ $adminUser = 'azureadm'
 $adminPwd = $configuration.'vmAdminPassword'
 $vnet = 'oe-docker-vnet'
 $subnet = 'subnet-1'
-$count = 2
+$count = 5
 
 
 az account set --subscription $subscription
