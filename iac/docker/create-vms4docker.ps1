@@ -2,7 +2,7 @@ $file_content = Get-Content "./.secret" -raw
 $file_content = [Regex]::Escape($file_content)
 $file_content = $file_content -replace "(\\r)?\\n", [Environment]::NewLine
 $configuration = ConvertFrom-StringData($file_content)
-$configuration.'subscriptionId'
+
 
 
 $subscription = $configuration.'subscriptionId'
@@ -17,13 +17,30 @@ $adminUser = 'azureadm'
 $adminPwd = $configuration.'vmAdminPassword'
 $vnet = 'oe-docker-vnet'
 $subnet = 'subnet-1'
-$count = 5
+$count = 2
+$createAks = $true
+$aksName= 'oe-kubernetes-aks'
 
 
 az account set --subscription $subscription
 
 
 az group create --location westeurope --resource-group $resourceGroup
+
+if( $createAks ){
+    az aks create -g $resourceGroup  `
+    -n $aksName `
+    --enable-managed-identity  `
+    --node-count 1  `
+    --vm-set-type VirtualMachineScaleSets `
+    --load-balancer-sku standard `
+    --enable-cluster-autoscaler `
+    --min-count 1 `
+    --max-count 3
+
+    az aks get-credentials --resource-group $resourceGroup --name $aksName --file .kubeconfig
+
+}
 
 az network vnet create `
     --name oe-docker-vnet `
