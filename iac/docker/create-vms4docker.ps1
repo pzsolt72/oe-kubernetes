@@ -18,7 +18,7 @@ $adminPwd = $configuration.'vmAdminPassword'
 $vnet = 'oe-docker-vnet'
 $subnet = 'subnet-1'
 $count = 2
-$createAks = $false
+$createAks = $true
 $aksName= 'oe-kubernetes-aks'
 
 
