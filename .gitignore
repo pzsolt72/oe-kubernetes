@@ -1,4 +1,5 @@
 .secret
+.kubeconfig
 
 .vscode/*
 !.vscode/settings.json

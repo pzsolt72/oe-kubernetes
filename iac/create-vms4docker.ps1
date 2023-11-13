@@ -2,7 +2,7 @@ $file_content = Get-Content "./.secret" -raw
 $file_content = [Regex]::Escape($file_content)
 $file_content = $file_content -replace "(\\r)?\\n", [Environment]::NewLine
 $configuration = ConvertFrom-StringData($file_content)
-$configuration.'subscriptionId'
+
 
 
 $subscription = $configuration.'subscriptionId'
@@ -17,13 +17,35 @@ $adminUser = 'azureadm'
 $adminPwd = $configuration.'vmAdminPassword'
 $vnet = 'oe-docker-vnet'
 $subnet = 'subnet-1'
-$count = 5
+$count = 2
+$createAks = $true
+$aksName= 'oe-kubernetes-aks'
+$kubeconfigFileName = ".kubeconfig"
 
 
 az account set --subscription $subscription
 
 
 az group create --location westeurope --resource-group $resourceGroup
+
+if( $createAks ){
+    az aks create -g $resourceGroup  `
+    -n $aksName `
+    --enable-managed-identity  `
+    --node-count 1  `
+    --vm-set-type VirtualMachineScaleSets `
+    --load-balancer-sku standard `
+    --enable-cluster-autoscaler `
+    --min-count 1 `
+    --max-count 3
+
+    # save kubeconfig
+    if (Test-Path $kubeconfigFileName) {
+        Remove-Item $kubeconfigFileName
+    }
+    az aks get-credentials --resource-group $resourceGroup --name $aksName --file $kubeconfigFileName
+
+}
 
 az network vnet create `
     --name oe-docker-vnet `
@@ -53,12 +75,13 @@ for ($i = 0; $i -lt $count; $i++) {
         --vm-name $vm  --name customScript `
         --publisher Microsoft.Azure.Extensions `
         --version 2.0 `
-        --settings ./iac/docker/custom-script-config.json
+        --settings ./iac/custom-script-config.json
     # set autoshutdown
     az vm auto-shutdown -n $vm -g $resourceGroup --time 1730
 
     # open ports
     az vm open-port -n $vm -g $resourceGroup --port 80,8080
+    
 }
 
 $publiciplist=$(az vm list-ip-addresses -g $resourceGroup  --query "[].virtualMachine.network.publicIpAddresses[0].id" -o tsv)
@@ -73,8 +96,10 @@ foreach ($ipResource in $publiciplist) {
   $counter++
 }
 
-
+az account set --subscription $subscription
 az group delete --resource-group $resourceGroup --yes
 
 
-# 
+for i in $(seq 0 1); do
+    rsync -vzh ssh cfg azureadm@vm$i.oedevops.site:~/.kube/config
+done
