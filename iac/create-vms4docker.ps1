@@ -20,6 +20,7 @@ $subnet = 'subnet-1'
 $count = 2
 $createAks = $true
 $aksName= 'oe-kubernetes-aks'
+$kubeconfigFileName = ".kubeconfig"
 
 
 az account set --subscription $subscription
@@ -38,7 +39,11 @@ if( $createAks ){
     --min-count 1 `
     --max-count 3
 
-    az aks get-credentials --resource-group $resourceGroup --name $aksName --file .kubeconfig
+    # save kubeconfig
+    if (Test-Path $kubeconfigFileName) {
+        Remove-Item $kubeconfigFileName
+    }
+    az aks get-credentials --resource-group $resourceGroup --name $aksName --file $kubeconfigFileName
 
 }
 
@@ -70,12 +75,13 @@ for ($i = 0; $i -lt $count; $i++) {
         --vm-name $vm  --name customScript `
         --publisher Microsoft.Azure.Extensions `
         --version 2.0 `
-        --settings ./iac/docker/custom-script-config.json
+        --settings ./iac/custom-script-config.json
     # set autoshutdown
     az vm auto-shutdown -n $vm -g $resourceGroup --time 1730
 
     # open ports
     az vm open-port -n $vm -g $resourceGroup --port 80,8080
+    
 }
 
 $publiciplist=$(az vm list-ip-addresses -g $resourceGroup  --query "[].virtualMachine.network.publicIpAddresses[0].id" -o tsv)
@@ -90,8 +96,10 @@ foreach ($ipResource in $publiciplist) {
   $counter++
 }
 
-
+az account set --subscription $subscription
 az group delete --resource-group $resourceGroup --yes
 
 
-# 
+for i in $(seq 0 1); do
+    rsync -vzh ssh cfg azureadm@vm$i.oedevops.site:~/.kube/config
+done
