@@ -17,7 +17,7 @@ $adminUser = 'azureadm'
 $adminPwd = $configuration.'vmAdminPassword'
 $vnet = 'oe-docker-vnet'
 $subnet = 'subnet-1'
-$count = 2
+$count = 4
 $createAks = $true
 $aksName= 'oe-kubernetes-aks'
 $kubeconfigFileName = ".kubeconfig"
@@ -44,6 +44,7 @@ if( $createAks ){
         Remove-Item $kubeconfigFileName
     }
     az aks get-credentials --resource-group $resourceGroup --name $aksName --file $kubeconfigFileName
+    # TODO: put the kubeconfig to the vm pscp 22 port is blocked on my laptop
 
 }
 
@@ -99,7 +100,5 @@ foreach ($ipResource in $publiciplist) {
 az account set --subscription $subscription
 az group delete --resource-group $resourceGroup --yes
 
-
-for i in $(seq 0 1); do
-    rsync -vzh ssh cfg azureadm@vm$i.oedevops.site:~/.kube/config
-done
+# workaround to put kubeconfig from cloudshell
+# for i in $(seq 0 2); do scp -pr -o StrictHostKeyChecking=no .kube azureadm@vm$i.oedevops.site:~; done
