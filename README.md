@@ -248,3 +248,30 @@ sudo docker stop mybookservice
 sudo docker rm mybookservice
 ```
 
+## Docker as a Tool for Running Commands
+
+### Try Rocky Linux 9.2
+```bash
+sudo docker run -it rockylinux:9.2 bash
+```
+Try a linux command e.g.: ls -la or echo "hello rocky"
+
+You can terminate your command promt with CTRL-C.
+
+### Generate self signed certificates
+```bash
+mkdir mycerts
+sudo docker run -v ~/mycerts:/certs -e SSL_SUBJECT=mybookservice.com stakater/ssl-certs-generator:1.0
+ls -l mycerts
+```
+
+ls result should look like as follows
+```bash
+-rw-r--r-- 1 root     root     1675 Nov 15 17:23 ca-key.pem
+-rw-r--r-- 1 root     root     1090 Nov 15 17:23 ca.pem
+-rw-r--r-- 1 root     root       17 Nov 15 17:23 ca.srl
+-rw-r--r-- 1 root     root     1070 Nov 15 17:23 cert.pem
+-rw-r--r-- 1 root     root     1001 Nov 15 17:23 key.csr
+-rw-r--r-- 1 root     root     1675 Nov 15 17:23 key.pem
+-rw-r--r-- 1 root     root      241 Nov 15 17:23 openssl.cnf
+```

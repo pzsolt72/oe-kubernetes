@@ -17,7 +17,7 @@ $adminUser = 'azureadm'
 $adminPwd = $configuration.'vmAdminPassword'
 $vnet = 'oe-docker-vnet'
 $subnet = 'subnet-1'
-$count = 4
+$count = 2
 $createAks = $true
 $aksName= 'oe-kubernetes-aks'
 $kubeconfigFileName = ".kubeconfig"
@@ -98,7 +98,7 @@ foreach ($ipResource in $publiciplist) {
 }
 
 az account set --subscription $subscription
-az group delete --resource-group $resourceGroup --yes
+# az group delete --resource-group $resourceGroup --yes
 
 # workaround to put kubeconfig from cloudshell
-# for i in $(seq 0 2); do scp -pr -o StrictHostKeyChecking=no .kube azureadm@vm$i.oedevops.site:~; done
+# for i in $(seq 0 1); do scp -pr -o StrictHostKeyChecking=no .kube azureadm@vm$i.oedevops.site:~; done
