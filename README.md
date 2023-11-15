@@ -259,6 +259,10 @@ Try a linux command e.g.: ls -la or echo "hello rocky"
 You can terminate your command promt with CTRL-C.
 
 ### Generate self signed certificates
+
+With a prepared container we can create self signed certificates easily. 
+Sure, for development purposes only!  
+
 ```bash
 mkdir mycerts
 sudo docker run -v ~/mycerts:/certs -e SSL_SUBJECT=mybookservice.com stakater/ssl-certs-generator:1.0
