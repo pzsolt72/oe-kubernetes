@@ -325,9 +325,15 @@ cat pod.yaml
 Investigate the pod yaml content.
 
 Deploy the pod by the yaml file.
+Check the deployed pod and the logs from the container.
 
 ```bash
+kubectl apply -f pod.yaml
 
+kubectl get pods 
+kubectl get pods --all-namespaces -o wide 
+
+kubectl logs webserver
 ```
 
 
