@@ -372,7 +372,9 @@ kubectl get pods
 
 ```
 
-Now expose the deployment as a service and check it with the following commands.
+### Expose the deployment as a service
+
+Check the manifest
 ```bash
 cat service.yaml
 ```
