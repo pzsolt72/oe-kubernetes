@@ -372,6 +372,21 @@ kubectl get pods
 
 ```
 
+Now expose the deployment as a service and check it with the following commands.
 ```bash
+cat service.yaml
+```
+
+Investigate the service.yaml k8s manifest file.
+
+```bash
+kubectl apply -f service.yaml
+
+kubectl get svc
 
 ```
+
+Use the EXTERNAL-IP value to check the exposed service from your browser, just past the IP address into the addressbar.
+The Nginx welcome page appears.
+
+
