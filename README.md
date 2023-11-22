@@ -336,20 +336,39 @@ kubectl get pods --all-namespaces -o wide
 kubectl logs webserver
 ```
 
+Delete the pod
+```bash
+kubectl delete -f pod.yaml
+```
+
+### Create deployment from manifest yaml
+
 
 ```bash
+cat deploy.yaml
+
+```
+Check the content of your manifest yaml file.
+
+Deploy with the following command.
+Check the deployed pods and deployment.
+```bash
+kubectl apply -f deploy.yaml
+
+kubectl get deploy
+
+kubectl get pods
 
 ```
 
+Scale up your deployment to 5 instances.
+Check the result.
 ```bash
+kubectl scale deploy nginx-deployment --replicas=5
 
-```
+kubectl get deploy
 
-```bash
-
-```
-
-```bash
+kubectl get pods
 
 ```
 
