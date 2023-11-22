@@ -1,6 +1,6 @@
 # Docker and Kubernetes hands on practices
 
-This repo contains a couple of basic container ( Docker ) and Kubernetes practices and it's infrastructure creation.
+This repo contains a couple of basic container ( Docker ) and Kubernetes practices and its infrastructure creation.
 
 
 
