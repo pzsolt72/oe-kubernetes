@@ -325,28 +325,70 @@ cat pod.yaml
 Investigate the pod yaml content.
 
 Deploy the pod by the yaml file.
+Check the deployed pod and the logs from the container.
 
 ```bash
+kubectl apply -f pod.yaml
+
+kubectl get pods 
+kubectl get pods --all-namespaces -o wide 
+
+kubectl logs webserver
+```
+
+Delete the pod
+```bash
+kubectl delete -f pod.yaml
+```
+
+### Create deployment from manifest yaml
+
+
+```bash
+cat deploy.yaml
+
+```
+Check the content of your manifest yaml file.
+
+Deploy with the following command.
+Check the deployed pods and deployment.
+```bash
+kubectl apply -f deploy.yaml
+
+kubectl get deploy
+
+kubectl get pods
 
 ```
 
-
+Scale up your deployment to 5 instances.
+Check the result.
 ```bash
+kubectl scale deploy nginx-deployment --replicas=5
+
+kubectl get deploy
+
+kubectl get pods
 
 ```
 
+### Expose the deployment as a service
+
+Check the manifest
 ```bash
+cat service.yaml
+```
+
+Investigate the service.yaml k8s manifest file.
+
+```bash
+kubectl apply -f service.yaml
+
+kubectl get svc
 
 ```
 
-```bash
+Use the EXTERNAL-IP value to check the exposed service from your browser, just past the IP address into the addressbar.
+The Nginx welcome page appears.
 
-```
 
-```bash
-
-```
-
-```bash
-
-```

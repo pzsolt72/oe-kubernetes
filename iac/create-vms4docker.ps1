@@ -17,8 +17,8 @@ $adminUser = 'azureadm'
 $adminPwd = $configuration.'vmAdminPassword'
 $vnet = 'oe-docker-vnet'
 $subnet = 'subnet-1'
-$count = 7
-$createAks = $false
+$count = 2
+$createAks = $true
 $aksName= 'oe-kubernetes-aks'
 $kubeconfigFileName = ".kubeconfig"
 
