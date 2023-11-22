@@ -1,8 +1,8 @@
 # Docker and Kubernetes hands on practices
 
-This repo contains a couple of basic container ( Docker ) and Kubernetes practices and it's infrastructure creation.
+This repo contains a couple of basic container ( Docker ) and Kubernetes practices and its infrastructure creation.
 
-## Containers
+
 
 ## Prepare the environment
 
@@ -21,8 +21,9 @@ azureadm@oe-docker-vm0:~$
 
 *You can use your own computer as well with internet access. Prerequisites: installed Docker and running docker daemon, clone of this repository, Python 3 installed with Flask module*
 
+## Containers
 
-## Run an existing application in docker 
+### Run an existing application in docker 
 
 You will run an Nginx application in a Docker container.
 
@@ -161,7 +162,7 @@ sudo docker rm mynginx
 ```
 
 
-## Build a docker image from your application
+### Build a docker image from your application
 
 There is a prepared sample Python server application which provides a simple REST webservice interface in the following directory: oe-kubernetes/application/src/
 Investigate the code if you would like to.
@@ -248,3 +249,104 @@ sudo docker stop mybookservice
 sudo docker rm mybookservice
 ```
 
+### Docker as a Tool for Running Commands
+
+#### Try Rocky Linux 9.2
+```bash
+sudo docker run -it rockylinux:9.2 bash
+```
+Try a linux command e.g.: ls -la or echo "hello rocky"
+
+You can terminate your command promt with CTRL-C.
+
+#### Generate self signed certificates
+
+With a prepared container we can create self signed certificates easily. 
+Sure, for development purposes only!  
+
+```bash
+mkdir mycerts
+sudo docker run -v ~/mycerts:/certs -e SSL_SUBJECT=mybookservice.com stakater/ssl-certs-generator:1.0
+ls -l mycerts
+```
+
+ls result should look like as follows
+```bash
+-rw-r--r-- 1 root     root     1675 Nov 15 17:23 ca-key.pem
+-rw-r--r-- 1 root     root     1090 Nov 15 17:23 ca.pem
+-rw-r--r-- 1 root     root       17 Nov 15 17:23 ca.srl
+-rw-r--r-- 1 root     root     1070 Nov 15 17:23 cert.pem
+-rw-r--r-- 1 root     root     1001 Nov 15 17:23 key.csr
+-rw-r--r-- 1 root     root     1675 Nov 15 17:23 key.pem
+-rw-r--r-- 1 root     root      241 Nov 15 17:23 openssl.cnf
+```
+
+
+## Kubernetes 
+
+### Create your own namespace
+
+Create a namspace with your name to be separated within the cluster.
+```bash
+kubectl create ns pzsolt
+```
+
+Set your namspace as default for your context.
+```bash
+kubectl config set-context --current --namespace=pzsolt
+```
+
+List the namespaces
+```bash
+kubectl get ns
+```
+You will see the pre-existing namespaces, your namespace and the others namespaces.
+
+
+### Create your first pod with imperative kubectl command
+```bash
+kubectl run --image nginx pzsoltweb
+
+kubectl get pods
+```
+
+Delete your pod.
+```bash
+kubectl delete pod pzsoltweb
+```
+
+### Create the same pod the declarative way
+```bash
+
+cd oe-kubernetes/k8s-manifests
+cat pod.yaml
+
+```
+Investigate the pod yaml content.
+
+Deploy the pod by the yaml file.
+
+```bash
+
+```
+
+
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
+
+```
